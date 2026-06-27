@@ -1,6 +1,6 @@
-# Source env vars
-if [[ -f ~/.config/bash/exports.sh ]]; then
-  source ~/.config/bash/exports.sh
+# Source local env vars (outside git tree — survives checkout)
+if [[ -f ~/.exports ]]; then
+  source ~/.exports
 fi
 
 dotfiles() { git --git-dir="$HOME/dotfiles-linux" --work-tree="$HOME" "$@"; }
