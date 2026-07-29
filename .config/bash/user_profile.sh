@@ -27,7 +27,8 @@ ssh() {
 }
 
 _update_title() {
-  printf '\033]0;%s :: %s\007' "${PWD##*/}" "${0##*/}"
+  local title="${PWD##*/} :: ${0##*/}"
+  printf '\033]0;%s\007' "$title"
 }
 
 shopt -s histappend
