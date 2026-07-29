@@ -44,8 +44,10 @@ __git_branch_prompt() {
 
 PROMPT_COMMAND="__git_branch_prompt; _update_title; history -a; history -c; history -r"
 
-export FZF_CTRL_R_OPTS="--bind 'alt-j:down' --bind 'alt-k:up' --height 10"
-source /usr/share/fzf/shell/key-bindings.bash 2>/dev/null || source /usr/share/fzf/key-bindings.bash 2>/dev/null
+. "$HOME/.atuin/bin/env"
+
+[[ -f ~/.bash-preexec.sh ]] && source ~/.bash-preexec.sh
+eval "$(atuin init bash)"
 
 BASE=~/containers/$(whoami)
 DEST=~/.config/containers/systemd
