@@ -50,7 +50,7 @@ pcall(function()
     end
   end
 
-  -- buffer ui: hide cursor + ~ lines
+  -- buffer ui: hide cursor + ~ lines + number/sign gap
   local cursor_hl = vim.api.nvim_get_hl(0, { name = "Cursor", link = false })
   vim.api.nvim_create_autocmd({ "WinEnter", "BufWinEnter" }, {
     callback = function(data)
@@ -69,7 +69,7 @@ pcall(function()
     disable_netrw = true,
     hijack_netrw = true,
     respect_buf_cwd = true,
-    view = { width = 40, side = "left" },
+    view = { width = 40, side = "left", signcolumn = "no" },
     actions = { open_file = { resize_window = false } },
     renderer = { group_empty = false },
     filters = { dotfiles = false },
