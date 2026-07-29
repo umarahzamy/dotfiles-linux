@@ -9,6 +9,18 @@ pcall(function()
     "zip", "tar", "gz", "xz", "bz2", "7z", "rar",
   })
 
+  local function open_keep_focus()
+    local node = nt_api.tree.get_node_under_cursor()
+    if not node then return end
+    local ext = vim.fn.fnamemodify(node.name, ":e"):lower()
+    if vim.tbl_contains(external_exts, ext) then
+      nt_api.node.run.system()
+      vim.notify(string.format("Opening %s", node.name))
+      return
+    end
+    nt_api.node.open.edit(node, { focus = true })
+  end
+
   local function single_chain_expand()
     local node = nt_api.tree.get_node_under_cursor()
     if not node then return end
@@ -79,6 +91,7 @@ pcall(function()
           nt_api.fs.copy.basename()
         end
       end, "copy: path|dir|file|name")
+      m("<CR>", open_keep_focus, "open file & stay in tree")
       m("l", single_chain_expand, "open (auto-chain)")
       m("h", nt_api.node.navigate.parent_close, "close directory")
       m("z", nt_api.tree.collapse_all, "collapse all")
