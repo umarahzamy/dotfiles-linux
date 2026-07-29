@@ -35,7 +35,14 @@ shopt -s histappend
 export HISTSIZE=
 export HISTFILESIZE=
 export HISTCONTROL=ignoredups:erasedups
-PROMPT_COMMAND="_update_title; history -a; history -c; history -r"
+# --- Git branch in prompt (uses Fedora's built-in bash-color-prompt) ---
+__git_branch_prompt() {
+  local ref
+  ref=$(git rev-parse --abbrev-ref HEAD 2>/dev/null)
+  PROMPT_GIT_BRANCH=${ref:+($ref)}
+}
+
+PROMPT_COMMAND="__git_branch_prompt; _update_title; history -a; history -c; history -r"
 
 export FZF_CTRL_R_OPTS="--bind 'alt-j:down' --bind 'alt-k:up' --height 10"
 source /usr/share/fzf/shell/key-bindings.bash 2>/dev/null || source /usr/share/fzf/key-bindings.bash 2>/dev/null
