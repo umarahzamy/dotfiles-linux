@@ -74,3 +74,18 @@ alias cpi='pi --continue'
 alias nspi='pi --no-session'
 
 alias cat='bat --paging=never'
+
+rdp() {
+  local name="${1%.rdp}"
+  local file="$HOME/.rdp/$name.rdp"
+  if [[ ! -f "$file" ]]; then
+    echo "error: no .rdp profile '$name' ($file not found)" >&2
+    echo "available: $(ls "$HOME/.rdp"/*.rdp 2>/dev/null | xargs -n1 basename | tr '\n' ' ')" >&2
+    return 1
+  fi
+  shift
+  sdl-freerdp "$file" /cert:tofu /sec:nla \
+    /smart-sizing /decorations \
+    /w:1366 /h:768 \
+    /network:auto /gfx:AVC420,progressive,RFX /bpp:24 "$@"
+}
