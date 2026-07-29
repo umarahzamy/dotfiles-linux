@@ -59,36 +59,6 @@ while IFS= read -r -d '' file; do
   ln -sf "$file" "$DEST/$name"
 done < <(find "$BASE" -name ".*" -not -path "*/.*/*" -print0)
 
-# pi -- smart session launcher for the pi coding agent
-pi() {
-  # Fast pass-through for simple queries (skip session scan)
-  for arg do
-    if [[ $arg == "--help" ]] || [[ $arg == "-h" ]] || [[ $arg == "--version" ]]; then
-      command pi "$@"
-      return $?
-    fi
-  done
-
-  local encoded session_dir
-  # Encode $PWD into the same hash pi uses for its session folder
-  #   /home/user/foo  ->  --home-user-foo--
-  local dir="${PWD#/}"
-  encoded="--${dir//\//-}--"
-  session_dir="${PI_CODING_AGENT_SESSION_DIR:-$HOME/.pi/agent/sessions}/$encoded"
-
-  local -a sessions=()
-  if [[ -d "$session_dir" ]]; then
-    local backup_nullglob
-    backup_nullglob=$(shopt -p nullglob 2>/dev/null || true)
-    shopt -s nullglob
-    sessions=( "$session_dir"/*.jsonl )
-    eval "$backup_nullglob"
-  fi
-
-  local n=${#sessions[@]}
-  case "$n" in
-    0) command pi "$@"; return $? ;;
-    1) command pi --continue "$@"; return $? ;;
-    *) command pi --resume "$@"; return $? ;;
-  esac
-}
+alias rpi='pi --resume'
+alias cpi='pi --continue'
+alias nspi='pi --no-session'
