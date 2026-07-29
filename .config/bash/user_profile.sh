@@ -72,3 +72,5 @@ done < <(find "$BASE" -name ".*" -not -path "*/.*/*" -print0)
 alias rpi='pi --resume'
 alias cpi='pi --continue'
 alias nspi='pi --no-session'
+
+alias cat='bat --paging=never'
