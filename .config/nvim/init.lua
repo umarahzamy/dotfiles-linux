@@ -21,6 +21,7 @@ vim.opt.clipboard = "unnamedplus"
 vim.opt.autoread = true
 vim.opt.termguicolors = true
 vim.opt.cursorline = true
+vim.opt.undofile = true
 
 -- autoread
 local checktime_group = vim.api.nvim_create_augroup("auto_checktime", { clear = true })
