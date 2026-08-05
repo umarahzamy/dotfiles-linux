@@ -74,7 +74,18 @@ if not vim.g.vscode then
   for _, dir in ipairs({ "h", "j", "k", "l" }) do
     vim.keymap.set("t", "<C-w>" .. dir, ("<C-\\><C-n><C-w>%s"):format(dir), { desc = "terminal: move " .. dir })
   end
-  vim.keymap.set({ "n", "t" }, "<C-`>", function() vim.cmd("term") end, { desc = "terminal" })
+  vim.keymap.set({ "n", "t" }, "<C-`>", function()
+    vim.cmd("term")
+  end, { desc = "terminal" })
+
+  -- on terminal exit: delete buffer and replace window with MRU (like bufdelete)
+  vim.api.nvim_create_autocmd("TermClose", {
+    callback = function(ev)
+      require("plugins.snacks").bufdelete(ev.buf)
+    end,
+    desc = "delete terminal buffer on exit (like bufdelete)",
+  })
+
   vim.keymap.set("n", "<leader>qq", ":qa!<CR>", { desc = "quit all" })
 
   require("plugins.snacks")
