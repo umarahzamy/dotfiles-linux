@@ -38,7 +38,6 @@ vim.keymap.set({ "n", "v", "o" }, "q", "<Nop>")
 
 -- packages
 vim.pack.add({
-	{ src = "https://github.com/catppuccin/nvim", name = "catppuccin" },
 	{ src = "https://github.com/stevearc/conform.nvim", name = "conform" },
 	{ src = "https://github.com/dmtrKovalenko/fff.nvim", name = "fff" },
 	{ src = "https://github.com/folke/flash.nvim", name = "flash" },
