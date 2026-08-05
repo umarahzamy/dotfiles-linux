@@ -45,8 +45,8 @@ vim.pack.add({
   { src = "https://github.com/nvim-tree/nvim-web-devicons", name = "web-devicons" },
   { src = "https://github.com/stevearc/conform.nvim", name = "conform" },
   { src = "https://github.com/folke/snacks.nvim", name = "snacks" },
+  { src = "https://github.com/folke/trouble.nvim", name = "trouble" },
   { src = "https://github.com/neovim/nvim-lspconfig", name = "lspconfig" },
-	{ src = "https://github.com/neovim/nvim-lspconfig", name = "lspconfig" },
 })
 
 -- fff: download binary on install/update
