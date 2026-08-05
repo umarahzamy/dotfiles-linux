@@ -4,6 +4,7 @@ if [[ -f ~/.exports.sh ]]; then
 fi
 
 dotfiles() { git --git-dir="$HOME/dotfiles-linux" --work-tree="$HOME" "$@"; }
+sdotfiles() { git --git-dir="$HOME/dotfiles-shared" --work-tree="$HOME" "$@"; }
 
 gitdot() {
   type -P gitui &>/dev/null || {
@@ -11,6 +12,17 @@ gitdot() {
     return 1
   }
   export GIT_DIR="$HOME/dotfiles-linux"
+  export GIT_WORK_TREE="$HOME"
+  gitui
+  unset GIT_DIR GIT_WORK_TREE
+}
+
+sgitdot() {
+  type -P gitui &>/dev/null || {
+    echo "gitui not found" >&2
+    return 1
+  }
+  export GIT_DIR="$HOME/dotfiles-shared"
   export GIT_WORK_TREE="$HOME"
   gitui
   unset GIT_DIR GIT_WORK_TREE
