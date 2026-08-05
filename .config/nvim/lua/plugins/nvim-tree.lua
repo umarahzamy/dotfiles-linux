@@ -3,15 +3,48 @@ pcall(function()
   local nt_api = require("nvim-tree.api")
 
   local external_exts = vim.tbl_map(string.lower, {
-    "pdf", "epub", "cbz", "cbr",
-    "png", "jpg", "jpeg", "gif", "svg", "webp", "bmp",
-    "mp4", "mkv", "avi", "mov", "webm", "mp3", "flac", "wav", "ogg",
-    "zip", "tar", "gz", "xz", "bz2", "7z", "rar",
+    "7z",
+    "avi",
+    "bmp",
+    "bz2",
+    "cbr",
+    "cbz",
+    "epub",
+    "flac",
+    "gif",
+    "gz",
+    "jpeg",
+    "jpg",
+    "mkv",
+    "mov",
+    "mp3",
+    "mp4",
+    "ogg",
+    "pdf",
+    "png",
+    "pptx",
+    "rar",
+    "svg",
+    "tar",
+    "wav",
+    "webm",
+    "webp",
+    "xz",
+    "zip",
   })
+
+  local function is_root(node)
+    return node and node.name == ".."
+  end
 
   local function open_keep_focus()
     local node = nt_api.tree.get_node_under_cursor()
-    if not node then return end
+    if not node then
+      return
+    end
+    if is_root(node) then
+      return
+    end
     local ext = vim.fn.fnamemodify(node.name, ":e"):lower()
     if vim.tbl_contains(external_exts, ext) then
       nt_api.node.run.system()
@@ -23,7 +56,12 @@ pcall(function()
 
   local function single_chain_expand()
     local node = nt_api.tree.get_node_under_cursor()
-    if not node then return end
+    if not node then
+      return
+    end
+    if is_root(node) then
+      return
+    end
     if node.type ~= "directory" then
       local ext = vim.fn.fnamemodify(node.name, ":e"):lower()
       if vim.tbl_contains(external_exts, ext) then
@@ -38,9 +76,13 @@ pcall(function()
     nt_api.node.open.edit()
     if not was_open and node.open then
       local function rec(n)
-        if not n.open or not n.nodes or #n.nodes ~= 1 then return end
+        if not n.open or not n.nodes or #n.nodes ~= 1 then
+          return
+        end
         local child = n.nodes[1]
-        if child.type ~= "directory" then return end
+        if child.type ~= "directory" then
+          return
+        end
         if not child.open then
           child:expand_or_collapse()
         end
@@ -101,7 +143,9 @@ pcall(function()
     end,
   })
 
-  vim.keymap.set("n", "<C-b>", function() nt_api.tree.toggle() end, { desc = "nvim-tree: toggle" })
+  vim.keymap.set("n", "<C-b>", function()
+    nt_api.tree.toggle()
+  end, { desc = "nvim-tree: toggle" })
   vim.keymap.set("n", "<C-S-e>", function()
     nt_api.tree.open({ find_file = true })
   end, { desc = "nvim-tree: reveal file" })
