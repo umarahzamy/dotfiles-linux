@@ -18,6 +18,7 @@ pcall(function()
       css = { "biome" },
       html = { "biome" },
       sql = { "sql_formatter" },
+      typst = { "typstyle" },
     },
     format_on_save = { timeout_ms = 500 },
   })
