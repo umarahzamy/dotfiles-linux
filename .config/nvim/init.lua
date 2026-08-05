@@ -93,6 +93,7 @@ if not vim.g.vscode then
   require("plugins.grug-far")
   require("plugins.nvim-tree")
   require("plugins.conform")
+  require("plugins.paste-image")
 end
 
 -- LSP attach: buffer-local keymaps
