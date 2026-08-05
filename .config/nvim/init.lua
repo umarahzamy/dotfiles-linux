@@ -38,7 +38,6 @@ vim.keymap.set({ "n", "v", "o" }, "q", "<Nop>")
 
 -- packages
 vim.pack.add({
-	{ src = "https://github.com/max397574/better-escape.nvim", name = "better_escape" },
 	{ src = "https://github.com/catppuccin/nvim", name = "catppuccin" },
 	{ src = "https://github.com/stevearc/conform.nvim", name = "conform" },
 	{ src = "https://github.com/dmtrKovalenko/fff.nvim", name = "fff" },
@@ -66,7 +65,6 @@ vim.api.nvim_create_autocmd("PackChanged", {
 })
 
 -- global plugins: work in vscode also
-require("plugins.better-escape")
 require("plugins.catppuccin")
 require("plugins.flash")
 require("plugins.typst")
@@ -77,7 +75,7 @@ if not vim.g.vscode then
 	-- terminal keymaps
 	vim.keymap.set("t", "[b", "<C-\\><C-n>:bprevious!<CR>", { desc = "previous buffer" })
 	vim.keymap.set("t", "]b", "<C-\\><C-n>:bnext!<CR>", { desc = "next buffer" })
-	vim.keymap.set("t", "<C-space>", "<C-\\><C-n>", { desc = "exit terminal" })
+	vim.keymap.set("t", "<C-[>", "<C-\\><C-n>", { desc = "exit terminal (esc)" })
 	for _, dir in ipairs({ "h", "j", "k", "l" }) do
 		vim.keymap.set("t", "<C-w>" .. dir, ("<C-\\><C-n><C-w>%s"):format(dir), { desc = "terminal: move " .. dir })
 	end
