@@ -51,6 +51,8 @@ __git_branch_prompt() {
 
 PROMPT_COMMAND="__git_branch_prompt; _update_title"
 
+eval "$("$HOME/.local/bin/mise" activate bash)"
+
 eval "$(atuin init bash)"
 
 alias rpi='pi --resume'
