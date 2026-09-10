@@ -42,10 +42,6 @@ _update_title() {
   printf '\033]0;%s\007' "$title"
 }
 
-shopt -s histappend
-export HISTSIZE=
-export HISTFILESIZE=
-export HISTCONTROL=ignoredups:erasedups
 # --- Git branch in prompt (uses Fedora's built-in bash-color-prompt) ---
 __git_branch_prompt() {
   local ref
@@ -53,11 +49,8 @@ __git_branch_prompt() {
   PROMPT_GIT_BRANCH=${ref:+($ref)}
 }
 
-PROMPT_COMMAND="__git_branch_prompt; _update_title; history -a; history -c; history -r"
+PROMPT_COMMAND="__git_branch_prompt; _update_title"
 
-. "$HOME/.atuin/bin/env"
-
-[[ -f ~/.bash-preexec.sh ]] && source ~/.bash-preexec.sh
 eval "$(atuin init bash)"
 
 alias rpi='pi --resume'
