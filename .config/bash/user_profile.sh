@@ -60,26 +60,6 @@ PROMPT_COMMAND="__git_branch_prompt; _update_title; history -a; history -c; hist
 [[ -f ~/.bash-preexec.sh ]] && source ~/.bash-preexec.sh
 eval "$(atuin init bash)"
 
-BASE=~/containers/$(whoami)
-DEST=~/.config/containers/systemd
-systemctl --user daemon-reload
-
-mkdir -p "$DEST"
-find "$DEST" -xtype l -delete
-
-# Process substitution avoids subshell issues from piping to while
-while IFS= read -r -d '' file; do
-  ext="${file##*/}"
-  ext="${ext#.}"
-  [[ "$ext" != @(container|network|volume|build|pod|kube|artifact|env) ]] && continue
-
-  dir=$(dirname "$file")
-  rel="${dir#"$BASE"/}"
-
-  name="${rel//\//-}.$ext"
-  ln -sf "$file" "$DEST/$name"
-done < <(find "$BASE" -name ".*" -not -path "*/.*/*" -print0)
-
 alias rpi='pi --resume'
 alias cpi='pi --continue'
 alias nspi='pi --no-session'
