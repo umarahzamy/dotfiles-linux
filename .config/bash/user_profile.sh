@@ -63,6 +63,3 @@ eval "$(atuin init bash)"
 alias rpi='pi --resume'
 alias cpi='pi --continue'
 alias nspi='pi --no-session'
-
-alias cat='bat --paging=never'
-}
