@@ -50,11 +50,12 @@ __git_branch_prompt() {
 }
 
 PROMPT_COMMAND="__git_branch_prompt; _update_title"
-
-eval "$("$HOME/.local/bin/mise" activate bash)"
-
-eval "$(atuin init bash)"
-
+if command -v mise &>/dev/null; then
+  eval "$("$HOME/.local/bin/mise" activate bash)"
+fi
+if command -v atuin &>/dev/null; then
+  eval "$(atuin init bash)"
+fi
 alias rpi='pi --resume'
 alias cpi='pi --continue'
 alias nspi='pi --no-session'
